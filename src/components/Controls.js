@@ -16,7 +16,7 @@ class Controls extends Component {
               {
                 sizes.map( (size) => {
                   return(
-                    <option value={size} key={size}>{size}</option>
+                    <option value={size} key={size} selected={ size === svg.height ? "selected" : ''}>{size} </option>
                   )
                 })
               }
@@ -31,7 +31,7 @@ class Controls extends Component {
               {
                 sizes.map( (size) => {
                   return(
-                    <option value={size} key={size}>{size}</option>
+                    <option value={size} key={size} selected={ size === svg.width ? "selected" : ''}>{size}</option>
                   )
                 })
               }

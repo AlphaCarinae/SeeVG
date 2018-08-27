@@ -12,7 +12,7 @@ class Home extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        tools: "",
+        tools: "pointer",
         svg: {
           width: 400,
           height: 400
