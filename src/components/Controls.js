@@ -12,11 +12,11 @@ class Controls extends Component {
         <form>
           <label>
             svg height :
-            <select onChange={(event) => this.props.update({svg: {height: event.target.value, width: svg.width}})}>
+            <select onChange={(event) => this.props.update({svg: {height: event.target.value, width: svg.width}})} value={svg.height}>
               {
                 sizes.map( (size) => {
                   return(
-                    <option value={size} key={size} selected={ size === svg.height ? "selected" : ''}>{size} </option>
+                    <option value={size} key={size} >{size} </option>
                   )
                 })
               }
@@ -27,11 +27,11 @@ class Controls extends Component {
 
           <label>
             svg width :
-            <select onChange={(event) => this.props.update({svg: {height: svg.height, width: event.target.value}})}>
+            <select onChange={(event) => this.props.update({svg: {height: svg.height, width: event.target.value}})} value={svg.width}>
               {
                 sizes.map( (size) => {
                   return(
-                    <option value={size} key={size} selected={ size === svg.width ? "selected" : ''}>{size}</option>
+                    <option value={size} key={size} >{size}</option>
                   )
                 })
               }

@@ -21,8 +21,8 @@ class Tools extends Component {
           {
             toolset.map( (tool) => {
           return(
-            <button onClick={(event) => this.props.update({tools: tool})}>
-              <img src={imports[tool]} alt="shape tool selector" key={imports[tool]}/>
+            <button onClick={(event) => this.props.update({tools: tool})} key={tool}>
+              <img src={imports[tool]} alt="shape tool selector" key={tool}/>
             </button>
           )})
           }

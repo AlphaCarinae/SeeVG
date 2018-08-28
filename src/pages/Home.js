@@ -17,7 +17,8 @@ class Home extends Component {
           width: 400,
           height: 400
         },
-        shape: {}
+        shapes: {},
+        board: {}
       }
     }
 
@@ -29,13 +30,18 @@ class Home extends Component {
        this.setState(...this.state, toolValues)
     }
 
+    updateBoard(boardItems) {
+      console.log(boardItems);
+      // this.setState(...this.state, boardItems )
+    }
+
 
     render() {
         return(
             <div className="container">
               <Menu />
               <Tools {...this.state} update={this.updateTool.bind(this)}/>
-              <Board {...this.state} />
+              <Board {...this.state} update={this.updateBoard.bind(this)}/>
               <Controls {...this.state} update={this.updateSVG.bind(this)} />
               <Shapes />
             </div>
