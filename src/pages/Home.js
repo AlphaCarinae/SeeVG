@@ -8,11 +8,16 @@ import Tools from '../components/Tools';
 
 
 
+
 class Home extends Component {
     constructor(props) {
       super(props);
       this.state = {
         tools: "pointer",
+        color: "#000",
+        fillColor: "#fff",
+        opacity: 1,
+        lineWidth: 1,
         svg: {
           width: 400,
           height: 400

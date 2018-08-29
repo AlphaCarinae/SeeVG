@@ -6,30 +6,74 @@ class Board extends Component {
   constructor() {
     super();
     this.state = {
+      boardSize: {},
       items: { },
-      pointsInProgress: {
-        startX: 0,
-        startY: 0,
-        stopX: 0,
-        stopY:0
+      points: {
+        x1: 0,
+        y1: 0,
+        x2: 0,
+        y2: 0
       }
     }
 
   }
 
   svgRender() {
-    const { startX, startY, stopX, stopY} = this.state.pointsInProgress;
-    console.log(startX, startY, stopX, stopY, this.state);
+    const { x1, y1, x2, y2} = this.state.points;
+    const { tools, color, fillColor, lineWidth, opacity } =this.props;
+
+    // console.log(x1, y1, x2, y2, this.state);
     let snap = Snap('#drawingBoard');
-    snap.line(startX, startY, stopX, stopY).attr({stroke: "#000"})
-    console.log(snap.toJSON());
-    console.log(snap.innerSVG());
+    // tools === "line" ? snap.line(x1, y1, x2, y2).attr({stroke: color}) : null
+    //calculate width and height for rectangle
+    let w = Math.abs(x2 - x1)
+    let h = Math.abs(y2 - y1)
+
+    switch(tools) {
+      case "pointer" :
+
+        break;
+      case "line" :
+        snap
+          .line(x1, y1, x2, y2)
+          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+          .click((e) => {console.log(e)})
+        break;
+      case "rectangle" :
+      //set x and y to top left corner
+        let x ,y ;
+        (x2 > x1) ? x = x1 : x = x2;
+        (y2 > y1) ? y = y1 : y = y2;
+        console.log(x,y);
+        snap
+          .rect(x, y, w, h)
+          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+          .click((e) => {console.log(e)})
+        break;
+      case "circle" :
+        let r = Snap.len(x1,y1,x2,y2)
+        snap
+          .circle(x1,y1, r)
+          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+          .click((e) => {console.log(e)})
+        break;
+      case "ellipse" :
+        snap
+          .ellipse(x1,y1, w, h)
+          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+          .click((e) => {console.log(e)})
+        break;
+        default : console.log('no shape match found');
+    }
 
   }
 
-  // componentDidMount() {
-  //   this.svgRender();
-  // }
+  componentDidMount() {
+    //getting the height and width of the board div
+    const {clientHeight, clientWidth} = this.refs.board
+
+    this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth }});
+  }
   //
   // componentDidUpdate() {
   //   this.svgRender();
@@ -43,37 +87,40 @@ class Board extends Component {
   render() {
     // console.log(this.props);
     const { svg, board, tools }  = this.props;
+    const { height, width} = this.state.boardSize;
     return(
-      <div className="board">
+      <div className="board" ref="board">
+        {/* <svg id="backBoard" height={height} width={width}> */}
+          <svg
+            x="100"
+            y="100"
+            id="drawingBoard"
+            width={svg.width}
+            height={svg.height}
+            viewBox={"0 0 " + svg.width + " " + svg.height}
+            onMouseDown={(event) => {
+              let points = this.state.points;
+              points.x1 = event.nativeEvent.offsetX;
+              points.y1 = event.nativeEvent.offsetY;
+              this.setState({...this.state, points})
 
-        <svg
-          id="drawingBoard"
-          width={svg.width}
-          height={svg.height}
-          viewBox={"0 0 " + svg.width + " " + svg.height}
-          onMouseDown={(event) => {
-            let pointsInProgress = this.state.pointsInProgress;
-            pointsInProgress.startX = event.nativeEvent.offsetX;
-            pointsInProgress.startY = event.nativeEvent.offsetY;
-            this.setState({...this.state, pointsInProgress})
+            }}
+            onMouseUp={(event) => {
+              let points = this.state.points;
+              points.x2 = event.nativeEvent.offsetX;
+              points.y2 = event.nativeEvent.offsetY;
+              this.setState({...this.state, points})
+                this.svgRender();
+            }}
+            onDragEnter={(event) => {
+              console.log("test event : ",event.nativeEvent);
+            }}
+          >
 
-          }}
-          onMouseUp={(event) => {
-            let pointsInProgress = this.state.pointsInProgress;
-            pointsInProgress.stopX = event.nativeEvent.offsetX;
-            pointsInProgress.stopY = event.nativeEvent.offsetY;
-            this.setState({...this.state, pointsInProgress})
-              this.svgRender();
-          }}
-          onDrag={(event) => {
-            console.log("dragging");
-          }}
-        >
-
-          <circle cx = "10" cy = "10" r="10" fill="red" />
-          {}
-        </svg>
-
+            <circle cx = "10" cy = "10" r="10" fill="red" />
+            {}
+          </svg>
+        {/* </svg> */}
       </div>
     )
   }

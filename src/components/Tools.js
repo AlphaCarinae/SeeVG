@@ -4,6 +4,8 @@ import pointer from '../img/pointinghand.svg';
 import line from '../img/line.svg'
 import rectangle from '../img/rectangle.svg'
 import elipse from '../img/elipse.svg'
+import circle from '../img/elipse.svg'
+import move from '../img/move.svg'
 
 class Tools extends Component {
 
@@ -11,8 +13,10 @@ class Tools extends Component {
     const imports = {
       pointer: pointer,
       line: line,
+      circle: circle,
       rectangle: rectangle,
-      elipse: elipse
+      elipse: elipse,
+      move: move
     }
     const toolset = Object.keys(imports);
 
@@ -26,6 +30,18 @@ class Tools extends Component {
             </button>
           )})
           }
+          <br></br>
+          <input type="color" onChange={(event) => this.props.update({color: event.target.value})}></input>
+          <input type="color" onChange={(event) => this.props.update({fillColor: event.target.value})}></input>
+          <br></br>
+
+          <label>Opacity:</label>
+          <input type="opacity" onChange={(event) => this.props.update({opacity: event.target.value})}></input>
+          <br></br>
+
+          <label>Line width:</label>
+          <input type="number" onChange={(event) => this.props.update({lineWidth: event.target.value})}></input>
+
         </div>
 
 // the code above generates items based on all the tools below
