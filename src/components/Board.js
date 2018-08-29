@@ -6,6 +6,7 @@ class Board extends Component {
   constructor() {
     super();
     this.state = {
+      mouseIsDown: false,
       boardSize: {},
       items: { },
       points: {
@@ -44,7 +45,6 @@ class Board extends Component {
         let x ,y ;
         (x2 > x1) ? x = x1 : x = x2;
         (y2 > y1) ? y = y1 : y = y2;
-        console.log(x,y);
         snap
           .rect(x, y, w, h)
           .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
@@ -99,6 +99,8 @@ class Board extends Component {
             height={svg.height}
             viewBox={"0 0 " + svg.width + " " + svg.height}
             onMouseDown={(event) => {
+              this.setState({mouseIsDown: true})
+
               let points = this.state.points;
               points.x1 = event.nativeEvent.offsetX;
               points.y1 = event.nativeEvent.offsetY;
@@ -106,6 +108,9 @@ class Board extends Component {
 
             }}
             onMouseUp={(event) => {
+              this.setState({mouseIsDown: false})
+
+
               let points = this.state.points;
               points.x2 = event.nativeEvent.offsetX;
               points.y2 = event.nativeEvent.offsetY;

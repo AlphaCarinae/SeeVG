@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import pointer from '../img/pointinghand.svg';
 import line from '../img/line.svg'
 import rectangle from '../img/rectangle.svg'
-import elipse from '../img/elipse.svg'
-import circle from '../img/elipse.svg'
+import ellipse from '../img/ellipse.svg'
+import circle from '../img/ellipse.svg'
 import move from '../img/move.svg'
 
 class Tools extends Component {
@@ -15,11 +15,11 @@ class Tools extends Component {
       line: line,
       circle: circle,
       rectangle: rectangle,
-      elipse: elipse,
+      ellipse: ellipse,
       move: move
     }
     const toolset = Object.keys(imports);
-
+    const { color, fillColor } = this.props;
     return (
         <div className="tools">
           {
@@ -31,8 +31,8 @@ class Tools extends Component {
           )})
           }
           <br></br>
-          <input type="color" onChange={(event) => this.props.update({color: event.target.value})}></input>
-          <input type="color" onChange={(event) => this.props.update({fillColor: event.target.value})}></input>
+          <input type="color" value={color} onChange={(event) => this.props.update({color: event.target.value})}></input>
+          <input type="color" value={fillColor} onChange={(event) => this.props.update({fillColor: event.target.value})}></input>
           <br></br>
 
           <label>Opacity:</label>
@@ -56,8 +56,8 @@ class Tools extends Component {
       //   <button onClick={(event) => this.props.update({tools: "rectangle"})}>
       //       <img src={rectangle} alt="shape tool selector"/>
       //   </button>
-      //   <button onClick={(event) => this.props.update({tools: "elipse"})}>
-      //       <img src={elipse} alt="shape tool selector"/>
+      //   <button onClick={(event) => this.props.update({tools: "ellipse"})}>
+      //       <img src={ellipse} alt="shape tool selector"/>
       //   </button>
       // </div>
     )
