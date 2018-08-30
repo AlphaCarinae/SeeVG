@@ -43,7 +43,6 @@ class Tools extends Component {
       circle: circle,
       rectangle: rectangle,
       ellipse: ellipse,
-      move: move
     }
     const toolset = Object.keys(imports);
     const { color, fillColor, opacity, lineWidth } = this.props;

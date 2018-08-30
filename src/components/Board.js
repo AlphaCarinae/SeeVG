@@ -31,7 +31,6 @@ class Board extends Component {
   componentDidMount() {
     //getting the height and width of the board div
     const {clientHeight, clientWidth} = this.refs.board
-
     this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth }});
     //bind delete key to delete selected items
     window.addEventListener("keydown", this._handleDelKey);
@@ -144,7 +143,7 @@ class Board extends Component {
   render() {
     // console.log(this.props);
     const { svg, tools }  = this.props;
-    const { height, width} = this.state.boardSize;
+    const { height, width} = this.props.svg;
     return(
       <div className="board" ref="board">
         {/* <svg id="backBoard" height={height} width={width}> */}

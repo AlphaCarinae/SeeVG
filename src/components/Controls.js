@@ -12,7 +12,7 @@ class Controls extends Component {
           <legend>Controls</legend>
         <form>
           <label>
-            svg height :
+            svg height
             <select onChange={(event) => this.props.update({svg: {height: event.target.value, width: svg.width}})} value={svg.height}>
               {
                 sizes.map( (size) => {
@@ -27,7 +27,7 @@ class Controls extends Component {
           <br></br>
 
           <label>
-            svg width :
+            svg width 
             <select onChange={(event) => this.props.update({svg: {height: svg.height, width: event.target.value}})} value={svg.width}>
               {
                 sizes.map( (size) => {

@@ -30,33 +30,21 @@ class Home extends Component {
       }
     }
 
-    updateMenu(codeText) {
-      this.setState(...this.state, codeText)
-    }
-
-    updateSVG(svgValues){
-       this.setState(...this.state, svgValues)
-    }
-
-    updateTool(toolValues){
-       this.setState(...this.state, toolValues)
-    }
-
-    updateBoard(boardItems) {
-      console.log(boardItems);
-      // this.setState(...this.state, boardItems )
+    update(obj) {
+      this.setState(...this.state, obj)
     }
 
 
     render() {
         return(
             <div className="container">
-              <Menu {...this.state} update={this.updateMenu.bind(this)}/>
-              <Tools {...this.state} update={this.updateTool.bind(this)}/>
-              <Board {...this.state} update={this.updateBoard.bind(this)}/>
-              <Controls  {...this.state} />
+              <h2 className="logo">SeeVG</h2>
+              <Menu {...this.state} update={this.update.bind(this)}/>
+              <Tools {...this.state} update={this.update.bind(this)}/>
+              <Board {...this.state} update={this.update.bind(this)}/>
+              <Controls  {...this.state} update={this.update.bind(this)}/>
               <Shapes />
-              <SvgCode {...this.state} update={this.updateSVG.bind(this)}/>
+              <SvgCode {...this.state} update={this.update.bind(this)}/>
             </div>
         )
     }

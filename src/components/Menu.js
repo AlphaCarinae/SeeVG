@@ -11,6 +11,7 @@ class Menu extends Component {
     this.menuClick = this.menuClick.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
     this.showSvg = this.showSvg.bind(this)
+    this._downloadSvgFile = this._downloadSvgFile.bind(this)
   }
 
   clearBoard() {
@@ -31,6 +32,22 @@ class Menu extends Component {
     })
   }
 
+  _downloadSvgFile = () => {
+    console.log(this.props.svg);
+    const {width, height} = this.props.svg
+    var element = document.createElement("a");
+    let snap = Snap('#drawingBoard')
+    let svgCode = snap.innerSVG()
+    svgCode = '<svg width="' + width +'" height="' + height + '" xmlns="http://www.w3.org/2000/svg">' + svgCode + "</svg>"
+    console.log(svgCode);
+    let svgFile = [svgCode]
+    var file = new Blob(svgFile, {type: 'text/plain'});
+
+    element.href = URL.createObjectURL(file);
+    element.download = "myImage.svg";
+    element.click();
+  }
+
   render () {
 
     const {dropDownOpen} = this.state;
@@ -40,16 +57,14 @@ class Menu extends Component {
       <div className="menu">
         <div>
           <div onClick={ this.menuClick }>
-            SeeVG
+            Menu
           </div>
             <div className={ dropDownOpen ? "dropDownOpen" : "dropDownClosed" }>
-              <ul>
+
                 <li onClick={this.clearBoard}>New</li>
                 <li onClick={this.showSvg}>Show inline SVG code</li>
-                <li>Import</li>
-                <li>Save</li>
-                <li>Save As</li>
-              </ul>
+                <li  onClick={this._downloadSvgFile}>Save svg file ...</li>
+              
             </div>
 
         </div>
