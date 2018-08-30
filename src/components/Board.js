@@ -19,11 +19,22 @@ class Board extends Component {
 
   }
 
+  _handleDelKey(event) {
+    console.log(event.key);
+    if (event.key === "Backspace") {
+      let selectedElements = Snap.selectAll('.selected')
+      selectedElements.remove()
+      console.log(selectedElements)
+    }
+  }
+
   componentDidMount() {
     //getting the height and width of the board div
     const {clientHeight, clientWidth} = this.refs.board
 
     this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth }});
+    //bind delete key to delete selected items
+    window.addEventListener("keydown", this._handleDelKey);
   }
 
 
@@ -48,7 +59,7 @@ class Board extends Component {
       case "line" :
       //remove the last line drawn
         let oldLineInDrawing = snap.select('.drawingInMotion')
-        oldLineInDrawing ? oldLineInDrawing.remove() : null
+        if (oldLineInDrawing) { oldLineInDrawing.remove() }
       //draw new line at the new location
         let newLine = snap
                         .line(x1, y1, x2, y2)
@@ -66,7 +77,7 @@ class Board extends Component {
       case "rectangle" :
       //remove the last rectangle drawn
         let oldRectInDrawing = snap.select('.drawingInMotion')
-        oldRectInDrawing ? oldRectInDrawing.remove() : null
+        if (oldRectInDrawing) {oldRectInDrawing.remove()}
       //set x and y to top left corner
         let x ,y ;
         (x2 > x1) ? x = x1 : x = x2;
@@ -85,7 +96,7 @@ class Board extends Component {
       case "circle" :
       //remove the last circle drawn
         let oldCircleInDrawing = snap.select('.drawingInMotion')
-        oldCircleInDrawing ? oldCircleInDrawing.remove() : null
+        if (oldCircleInDrawing) {oldCircleInDrawing.remove()}
         //calculate radius
         let r = Snap.len(x1,y1,x2,y2)
         let newCircle = snap
@@ -102,7 +113,7 @@ class Board extends Component {
       case "ellipse" :
       //remove the last circle drawn
         let oldEllipseInDrawing = snap.select('.drawingInMotion')
-        oldEllipseInDrawing ? oldEllipseInDrawing.remove() : null
+        if (oldEllipseInDrawing) {oldEllipseInDrawing.remove()}
         let newEllipse = snap
                         .ellipse(x1,y1, w, h)
                         .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
@@ -132,7 +143,7 @@ class Board extends Component {
 
   render() {
     // console.log(this.props);
-    const { svg, board, tools }  = this.props;
+    const { svg, tools }  = this.props;
     const { height, width} = this.state.boardSize;
     return(
       <div className="board" ref="board">
@@ -149,16 +160,16 @@ class Board extends Component {
                    console.log(event.target.classList);
                    event.target.classList.toggle("selected")
 
-                 } else {
+                 } else if (event.target.id === "drawingBoard") {
                    //unselect any other elements which are "selected" on the board
-                   let selectedElements = Snap.selectAll('.selected')
-                   console.log(selectedElements);
-                   if (selectedElements)  {
-                     selectedElements.forEach((element) => element.toggleClass("selected"))
-                   } else {
-                     console.log("no selected elements exist")
-                   }
-                   console.log("drawingBoard")
+                     let selectedElements = Snap.selectAll('.selected')
+                     console.log(selectedElements);
+                     if (selectedElements)  {
+                       selectedElements.forEach((element) => element.toggleClass("selected"))
+                     } else {
+                       console.log("no selected elements exist")
+                     }
+                     console.log("drawingBoard")
                  }
 
               }
@@ -184,9 +195,7 @@ class Board extends Component {
                 this.setState({...this.state, points}, this.svgRender)
               }
             }}
-            onKeyDown={(event) => {
-              console.log(event);
-            }}
+
           >
             {/* All drawn shapes will go here */}
           </svg>

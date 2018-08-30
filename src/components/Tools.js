@@ -12,22 +12,22 @@ class Tools extends Component {
 
   updateState = function(obj) {
     this.props.update(obj)
-    let selectedElement = Snap.selectAll('.selected')
-    if (selectedElement !== null)  {
-      console.log(selectedElement);
+    let selectedElements = Snap.selectAll('.selected')
+    if (selectedElements !== null)  {
+      console.log(selectedElements);
       let objKey = Object.keys(obj)[0]
       switch (objKey) {
         case "color":
-        selectedElement.attr({stroke: obj[objKey]})
+        selectedElements.attr({stroke: obj[objKey]})
           break;
         case "fillColor":
-        selectedElement.attr({fill: obj[objKey]})
+        selectedElements.attr({fill: obj[objKey]})
           break;
         case "opacity":
-        selectedElement.attr({"fill-opacity": obj[objKey]})
+        selectedElements.attr({"fill-opacity": obj[objKey]})
           break;
         case "lineWidth":
-        selectedElement.attr({strokeWidth: obj[objKey]})
+        selectedElements.attr({strokeWidth: obj[objKey]})
           break;
         default:
 

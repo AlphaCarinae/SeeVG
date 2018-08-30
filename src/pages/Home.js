@@ -5,6 +5,7 @@ import Menu from '../components/Menu';
 import Controls from '../components/Controls';
 import Shapes from '../components/Shapes';
 import Tools from '../components/Tools';
+import SvgCode from '../components/SvgCode';
 
 
 
@@ -23,8 +24,14 @@ class Home extends Component {
           height: 400
         },
         shapes: {},
-        board: {}
+        board: {},
+        svgCode: "",
+        svgCodeShow: false
       }
+    }
+
+    updateMenu(codeText) {
+      this.setState(...this.state, codeText)
     }
 
     updateSVG(svgValues){
@@ -44,11 +51,12 @@ class Home extends Component {
     render() {
         return(
             <div className="container">
-              <Menu />
+              <Menu {...this.state} update={this.updateMenu.bind(this)}/>
               <Tools {...this.state} update={this.updateTool.bind(this)}/>
               <Board {...this.state} update={this.updateBoard.bind(this)}/>
-              <Controls {...this.state} update={this.updateSVG.bind(this)} />
+              <Controls  {...this.state} />
               <Shapes />
+              <SvgCode {...this.state} update={this.updateSVG.bind(this)}/>
             </div>
         )
     }
