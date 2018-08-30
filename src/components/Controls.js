@@ -8,7 +8,8 @@ class Controls extends Component {
     const sizes = [100, 200, 300, 400, 500, 600, 700, 800]
     return (
       <div className="controls">
-        <h4>Controls </h4>
+        <fieldset>
+          <legend>Controls</legend>
         <form>
           <label>
             svg height :
@@ -39,6 +40,7 @@ class Controls extends Component {
           </label>
 
         </form>
+        </fieldset>
       </div>
     )
   }

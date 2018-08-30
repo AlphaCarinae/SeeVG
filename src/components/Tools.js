@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Snap from 'snapsvg-cjs';
 
 import pointer from '../img/pointinghand.svg';
 import line from '../img/line.svg'
@@ -8,6 +9,32 @@ import circle from '../img/ellipse.svg'
 import move from '../img/move.svg'
 
 class Tools extends Component {
+
+  updateState = function(obj) {
+    this.props.update(obj)
+    let selectedElement = Snap.selectAll('.selected')
+    if (selectedElement !== null)  {
+      console.log(selectedElement);
+      let objKey = Object.keys(obj)[0]
+      switch (objKey) {
+        case "color":
+        selectedElement.attr({stroke: obj[objKey]})
+          break;
+        case "fillColor":
+        selectedElement.attr({fill: obj[objKey]})
+          break;
+        case "opacity":
+        selectedElement.attr({"fill-opacity": obj[objKey]})
+          break;
+        case "lineWidth":
+        selectedElement.attr({strokeWidth: obj[objKey]})
+          break;
+        default:
+
+      }
+    }
+
+  }
 
   render () {
     const imports = {
@@ -19,9 +46,10 @@ class Tools extends Component {
       move: move
     }
     const toolset = Object.keys(imports);
-    const { color, fillColor } = this.props;
+    const { color, fillColor, opacity, lineWidth } = this.props;
     return (
         <div className="tools">
+          <fieldset>
           {
             toolset.map( (tool) => {
           return(
@@ -30,18 +58,23 @@ class Tools extends Component {
             </button>
           )})
           }
-          <br></br>
-          <input type="color" value={color} onChange={(event) => this.props.update({color: event.target.value})}></input>
-          <input type="color" value={fillColor} onChange={(event) => this.props.update({fillColor: event.target.value})}></input>
-          <br></br>
+          </fieldset>
 
-          <label>Opacity:</label>
-          <input type="opacity" onChange={(event) => this.props.update({opacity: event.target.value})}></input>
-          <br></br>
+          <fieldset>
+            <input type="color" value={color} onChange={(event) => this.updateState({color: event.target.value})}></input>
+            <input type="color" value={fillColor} onChange={(event) => this.updateState({fillColor: event.target.value})}></input>
+          </fieldset>
 
-          <label>Line width:</label>
-          <input type="number" onChange={(event) => this.props.update({lineWidth: event.target.value})}></input>
+          <fieldset>
+            <label>Opacity: {opacity}
+              <input type="range" min="0" max="1" step="0.1" value={opacity} onChange={(event) => this.updateState({opacity: event.target.value})}></input>
+            </label>
+            <br></br>
 
+            <label>Line width: {lineWidth}
+              <input type="range" min="1" max="40" step="1" value={lineWidth} onChange={(event) => this.updateState({lineWidth: event.target.value})}></input>
+            </label>
+          </fieldset>
         </div>
 
 // the code above generates items based on all the tools below

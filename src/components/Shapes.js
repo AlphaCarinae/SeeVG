@@ -5,7 +5,6 @@ class Shapes extends Component {
   render () {
     return (
       <div className="shapes">
-        <button>Hexagon</button>
       </div>
     )
   }

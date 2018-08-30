@@ -19,13 +19,24 @@ class Board extends Component {
 
   }
 
-  svgRender() {
-    const { x1, y1, x2, y2} = this.state.points;
-    const { tools, color, fillColor, lineWidth, opacity } =this.props;
+  componentDidMount() {
+    //getting the height and width of the board div
+    const {clientHeight, clientWidth} = this.refs.board
 
+    this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth }});
+  }
+
+
+  svgRender() {
+
+    const { x1, y1, x2, y2} = this.state.points;
+    const { mouseIsDown } = this.state;
+    const { tools, color, fillColor, lineWidth, opacity } = this.props;
+
+    //ignore random clicks on the same spot
+    if (!(x1 === x2 && y1 === y2)) {
     // console.log(x1, y1, x2, y2, this.state);
     let snap = Snap('#drawingBoard');
-    // tools === "line" ? snap.line(x1, y1, x2, y2).attr({stroke: color}) : null
     //calculate width and height for rectangle
     let w = Math.abs(x2 - x1)
     let h = Math.abs(y2 - y1)
@@ -35,45 +46,80 @@ class Board extends Component {
 
         break;
       case "line" :
-        snap
-          .line(x1, y1, x2, y2)
-          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
-          .click((e) => {console.log(e)})
+      //remove the last line drawn
+        let oldLineInDrawing = snap.select('.drawingInMotion')
+        oldLineInDrawing ? oldLineInDrawing.remove() : null
+      //draw new line at the new location
+        let newLine = snap
+                        .line(x1, y1, x2, y2)
+                        .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+                        // .click((event) => {tools === "pointer" ? event.target.toggleClass("selected") : null})
+        if (mouseIsDown)  {
+          newLine.addClass("drawingInMotion")
+        } else {
+             newLine.addClass("drawn")
+             newLine.removeClass("drawingInMotion")
+         }
+
+
         break;
       case "rectangle" :
+      //remove the last rectangle drawn
+        let oldRectInDrawing = snap.select('.drawingInMotion')
+        oldRectInDrawing ? oldRectInDrawing.remove() : null
       //set x and y to top left corner
         let x ,y ;
         (x2 > x1) ? x = x1 : x = x2;
         (y2 > y1) ? y = y1 : y = y2;
-        snap
-          .rect(x, y, w, h)
-          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
-          .click((e) => {console.log(e)})
+        let newRect = snap
+                        .rect(x, y, w, h)
+                        .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+                        // .click(tools === "pointer" ? this.toggleClass : null)
+        if (mouseIsDown)  {
+          newRect.addClass("drawingInMotion")
+        } else {
+             newRect.addClass("drawn")
+             newRect.removeClass("drawingInMotion")
+         }
         break;
       case "circle" :
+      //remove the last circle drawn
+        let oldCircleInDrawing = snap.select('.drawingInMotion')
+        oldCircleInDrawing ? oldCircleInDrawing.remove() : null
+        //calculate radius
         let r = Snap.len(x1,y1,x2,y2)
-        snap
-          .circle(x1,y1, r)
-          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
-          .click((e) => {console.log(e)})
+        let newCircle = snap
+                        .circle(x1,y1, r)
+                        .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+                        // .click(() => {tools === "pointer" ? this.toggleClass("selected") : null})
+        if (mouseIsDown)  {
+          newCircle.addClass("drawingInMotion")
+        } else {
+             newCircle.addClass("drawn")
+             newCircle.removeClass("drawingInMotion")
+         }
         break;
       case "ellipse" :
-        snap
-          .ellipse(x1,y1, w, h)
-          .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
-          .click((e) => {console.log(e)})
+      //remove the last circle drawn
+        let oldEllipseInDrawing = snap.select('.drawingInMotion')
+        oldEllipseInDrawing ? oldEllipseInDrawing.remove() : null
+        let newEllipse = snap
+                        .ellipse(x1,y1, w, h)
+                        .attr({stroke: color, fill: fillColor, strokeWidth: lineWidth, "fill-opacity": opacity})
+                        // .click(tools === "pointer" ? this.toggleClass : null)
+        if (mouseIsDown)  {
+          newEllipse.addClass("drawingInMotion")
+        } else {
+             newEllipse.addClass("drawn")
+             newEllipse.removeClass("drawingInMotion")
+         }
         break;
         default : console.log('no shape match found');
     }
-
+  }
   }
 
-  componentDidMount() {
-    //getting the height and width of the board div
-    const {clientHeight, clientWidth} = this.refs.board
 
-    this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth }});
-  }
   //
   // componentDidUpdate() {
   //   this.svgRender();
@@ -92,38 +138,57 @@ class Board extends Component {
       <div className="board" ref="board">
         {/* <svg id="backBoard" height={height} width={width}> */}
           <svg
-            x="100"
-            y="100"
             id="drawingBoard"
-            width={svg.width}
-            height={svg.height}
-            viewBox={"0 0 " + svg.width + " " + svg.height}
+            width={width}
+            height={height}
+            viewBox={"0 0 " + width + " " + height}
+            onClick={(event) => {
+              if (tools === "pointer") {
+
+                 if (event.target.id !== "drawingBoard")  {
+                   console.log(event.target.classList);
+                   event.target.classList.toggle("selected")
+
+                 } else {
+                   //unselect any other elements which are "selected" on the board
+                   let selectedElements = Snap.selectAll('.selected')
+                   console.log(selectedElements);
+                   if (selectedElements)  {
+                     selectedElements.forEach((element) => element.toggleClass("selected"))
+                   } else {
+                     console.log("no selected elements exist")
+                   }
+                   console.log("drawingBoard")
+                 }
+
+              }
+            }}
             onMouseDown={(event) => {
-              this.setState({mouseIsDown: true})
 
               let points = this.state.points;
               points.x1 = event.nativeEvent.offsetX;
               points.y1 = event.nativeEvent.offsetY;
-              this.setState({...this.state, points})
+
+              this.setState({...this.state, points, mouseIsDown: true})
 
             }}
             onMouseUp={(event) => {
-              this.setState({mouseIsDown: false})
+              this.setState({...this.state, mouseIsDown: false}, this.svgRender)
 
-
-              let points = this.state.points;
-              points.x2 = event.nativeEvent.offsetX;
-              points.y2 = event.nativeEvent.offsetY;
-              this.setState({...this.state, points})
-                this.svgRender();
             }}
-            onDragEnter={(event) => {
-              console.log("test event : ",event.nativeEvent);
+            onMouseMove={(event) => {
+              if (this.state.mouseIsDown)  {
+                let points = this.state.points;
+                points.x2 = event.nativeEvent.offsetX;
+                points.y2 = event.nativeEvent.offsetY;
+                this.setState({...this.state, points}, this.svgRender)
+              }
+            }}
+            onKeyDown={(event) => {
+              console.log(event);
             }}
           >
-
-            <circle cx = "10" cy = "10" r="10" fill="red" />
-            {}
+            {/* All drawn shapes will go here */}
           </svg>
         {/* </svg> */}
       </div>

@@ -14,9 +14,9 @@ class Home extends Component {
       super(props);
       this.state = {
         tools: "pointer",
-        color: "#000",
-        fillColor: "none",
-        opacity: 1,
+        color: "#000000",
+        fillColor: "#ffffff",
+        opacity: 0.5,
         lineWidth: 1,
         svg: {
           width: 400,

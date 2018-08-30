@@ -44,8 +44,12 @@ body {
 .tools {
   grid-row: 2 / 4;
   grid-column: 1 / 2;
+  font-size: .8rem;
 }
 
+.tools input {
+  width: 95%;
+}
 .tools button img {
   height: 40px;
   width: 40px;
@@ -56,6 +60,10 @@ body {
 .controls {
   grid-row: 2 / 3;
   grid-column: 3 / 4;
+}
+
+.controls form {
+  margin: 0 auto;
 }
 
 .board {
@@ -72,6 +80,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.selected {
+  outline: 1px dashed black;
 }
 
 /* #backBoard {
