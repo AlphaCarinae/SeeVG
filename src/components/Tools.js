@@ -5,8 +5,8 @@ import pointer from '../img/pointinghand.svg';
 import line from '../img/line.svg'
 import rectangle from '../img/rectangle.svg'
 import ellipse from '../img/ellipse.svg'
-import circle from '../img/ellipse.svg'
-import move from '../img/move.svg'
+import circle from '../img/circle.svg'
+// import move from '../img/move.svg'
 
 class Tools extends Component {
 
@@ -52,9 +52,13 @@ class Tools extends Component {
           {
             toolset.map( (tool) => {
           return(
-            <button onClick={(event) => this.props.update({tools: tool})} key={tool}>
-              <img src={imports[tool]} alt="shape tool selector" key={tool}/>
-            </button>
+
+              <button onClick={(event) => this.props.update({tools: tool})} key={tool}>
+                <div>
+                  <img src={imports[tool]} alt="shape tool selector" key={tool}/>
+                </div>
+              </button>
+
           )})
           }
           </fieldset>

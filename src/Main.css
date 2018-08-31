@@ -20,7 +20,7 @@ body {
   grid-column: 2 / 3;
 
   min-height: 5vh;
-  margin: 3vh;
+  margin: 1vh;
 }
 
 .menu li {
@@ -65,9 +65,8 @@ body {
 .tools button img {
   height: 40px;
   width: 40px;
-
-  display: block;
 }
+
 
 .controls {
   grid-row: 2 / 3;
@@ -75,7 +74,7 @@ body {
 }
 
 .controls form {
-  margin: 0 auto;
+  margin: 1vh;
   font-size: 1.7vh;
 }
 

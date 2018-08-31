@@ -57,14 +57,14 @@ class Menu extends Component {
       <div className="menu">
         <div>
           <div onClick={ this.menuClick }>
-            Menu
+            <p>Menu</p>
           </div>
             <div className={ dropDownOpen ? "dropDownOpen" : "dropDownClosed" }>
 
                 <li onClick={this.clearBoard}>New</li>
                 <li onClick={this.showSvg}>Show inline SVG code</li>
                 <li  onClick={this._downloadSvgFile}>Save svg file ...</li>
-              
+
             </div>
 
         </div>
