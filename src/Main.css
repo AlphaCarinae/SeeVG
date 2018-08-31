@@ -99,6 +99,8 @@ body {
 }
 
 .svgResult {
+  font-family: sans-serif;
+  
   padding: 1vw;
   color: white;
   position: absolute;
