@@ -20,20 +20,32 @@ class Home extends Component {
         opacity: 0.5,
         lineWidth: 1,
         svg: {
-          width: 400,
-          height: 400
+          width: 200,
+          height: 200
         },
         shapes: {},
         board: {},
         svgCode: "",
         svgCodeShow: false
       }
+      
     }
+
+
 
     update(obj) {
       this.setState(...this.state, obj)
     }
 
+    componentDidMount() {
+// if the screen gets too small load the blank SVG board with 200x200px by default, otherwise 400x400px
+
+      if (window.innerWidth < 500)  {
+        this.setState({...this.state, svg: {width: 200, height: 200 }})
+      } else {
+        this.setState({...this.state, svg: {width: 400, height: 400 }})
+      }
+    }
 
     render() {
         return(

@@ -20,11 +20,9 @@ class Board extends Component {
   }
 
   _handleDelKey(event) {
-    console.log(event.key);
     if (event.key === "Backspace") {
       let selectedElements = Snap.selectAll('.selected')
       selectedElements.remove()
-      console.log(selectedElements)
     }
   }
 
@@ -130,15 +128,7 @@ class Board extends Component {
   }
 
 
-  //
-  // componentDidUpdate() {
-  //   this.svgRender();
-  // }
 
-  // createItem(){
-  //   console.log('created', this.props.tools);
-  //   this.props.tools === "rectangle" ?
-  // }
 
   render() {
     // console.log(this.props);
@@ -156,13 +146,11 @@ class Board extends Component {
               if (tools === "pointer") {
 
                  if (event.target.id !== "drawingBoard")  {
-                   console.log(event.target.classList);
                    event.target.classList.toggle("selected")
 
                  } else if (event.target.id === "drawingBoard") {
                    //unselect any other elements which are "selected" on the board
                      let selectedElements = Snap.selectAll('.selected')
-                     console.log(selectedElements);
                      if (selectedElements)  {
                        selectedElements.forEach((element) => element.toggleClass("selected"))
                      } else {

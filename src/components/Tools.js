@@ -14,7 +14,6 @@ class Tools extends Component {
     this.props.update(obj)
     let selectedElements = Snap.selectAll('.selected')
     if (selectedElements !== null)  {
-      console.log(selectedElements);
       let objKey = Object.keys(obj)[0]
       switch (objKey) {
         case "color":

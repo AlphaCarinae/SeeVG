@@ -33,13 +33,11 @@ class Menu extends Component {
   }
 
   _downloadSvgFile = () => {
-    console.log(this.props.svg);
     const {width, height} = this.props.svg
     var element = document.createElement("a");
     let snap = Snap('#drawingBoard')
     let svgCode = snap.innerSVG()
     svgCode = '<svg width="' + width +'" height="' + height + '" xmlns="http://www.w3.org/2000/svg">' + svgCode + "</svg>"
-    console.log(svgCode);
     let svgFile = [svgCode]
     var file = new Blob(svgFile, {type: 'text/plain'});
 

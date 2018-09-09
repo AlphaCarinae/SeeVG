@@ -1,26 +1,14 @@
- @import url('https://fonts.googleapis.com/css?family=Orbitron');
-
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+/* Common parts of CSS */
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 15% 70% 15%;
-  grid-template-rows: 10% 80% auto;
-
   background-color: rgb(163, 178, 196);
   color: black;
   font-size: 1rem;
-}
-
-.menu {
-  grid-row: 1 / 2;
-  grid-column: 2 / 3;
-
-  min-height: 5vh;
-  margin: 1vh;
 }
 
 .menu li {
@@ -46,56 +34,10 @@ body {
   display: none;
 }
 
-.shapes {
-  grid-row: 3 / 4;
-  grid-column: 2 / 3;
-
-  min-height: 15vh;
-}
-
-.tools {
-  grid-row: 2 / 4;
-  grid-column: 1 / 2;
-  font-size: .8rem;
-}
-
-.tools input {
-  width: 95%;
-}
-.tools button img {
-  height: 40px;
-  width: 40px;
-}
-
-
-.controls {
-  grid-row: 2 / 3;
-  grid-column: 3 / 4;
-}
-
-.controls form {
-  margin: 1vh;
-  font-size: 1.7vh;
-}
-
-.board {
-  grid-row: 2 / 3;
-  grid-column: 2 / 3;
-
-  min-width: 80%;
-  min-height: 80vh;
-  background-color: rgb(15, 48, 64);
-}
-
-.board div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.selected {
-  outline: 1px dashed black;
+#drawingBoard {
+  background-color: white;
+  display: block;
+  margin: auto;
 }
 
 .svgResult {
@@ -107,10 +49,10 @@ body {
   background-color: black;
   column-rule-color: white;
   z-index: 2;
-  top: 100px;
-  left: 100px;
-  min-width: 80vw;
-  min-height: 70vh;
+  top: 10vw;
+  left: 10vw;
+  max-width: 80vw;
+  max-height: 70vh;
   display: none;
   flex-direction: column;
   justify-content: space-between;
@@ -120,18 +62,102 @@ body {
   display: flex;
 }
 
-/* #backBoard {
-  width: 100%;
-  height: 80vh;
-} */
-
-#drawingBoard {
-  background-color: white;
-  display: block;
-  margin: auto;
-}
-
 .logo {
   margin: 2vh;
   font-family: 'Orbitron', sans-serif;
+}
+
+/* small screen CSS here */
+@media (max-width: 699px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+
+  }
+  .tools button img {
+    height: 30px;
+    width: 30px;
+  }
+
+  .menu {
+    text-align: center;
+  }
+
+  .tools, .controls {
+    margin: 2vh auto;
+  }
+
+}
+
+ /* Large screen CSS */
+ @media (min-width: 700px) {
+
+  .container {
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+    grid-template-rows: 10% 80% auto;
+  }
+
+  .menu {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+
+    min-height: 5vh;
+    margin: 1vh;
+  }
+
+
+  .shapes {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+
+    min-height: 15vh;
+  }
+
+  .tools {
+    grid-row: 2 / 4;
+    grid-column: 1 / 2;
+    font-size: .8rem;
+  }
+
+  .tools input {
+    width: 95%;
+  }
+  .tools button img {
+    height: 40px;
+    width: 40px;
+  }
+
+
+  .controls {
+    grid-row: 2 / 3;
+    grid-column: 3 / 4;
+  }
+
+  .controls form {
+    margin: 1vh;
+    font-size: 1.7vh;
+  }
+
+  .board {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+
+    min-width: 80%;
+    min-height: 80vh;
+    background-color: rgb(15, 48, 64);
+  }
+
+  .board div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .selected {
+    outline: 1px dashed black;
+  }
+
+
 }

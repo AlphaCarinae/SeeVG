@@ -3,13 +3,27 @@ import React, { Component } from 'react';
 
 class Controls extends Component {
 
+  generateSizes() {
+      //define the acceptable svg dimesions to be selected in Controls sextion
+  let maxSize = window.innerWidth;
+  const sizes = [];
+  let x=100;
+  while (x < maxSize) {
+    sizes.push(x);
+    x += 100;
+  }
+  return sizes
+  }
+
   render () {
     const { svg }  = this.props;
-    const sizes = [100, 200, 300, 400, 500, 600, 700, 800]
+    
+    const sizes = this.generateSizes()
+    
     return (
       <div className="controls">
         <fieldset>
-          <legend>Controls</legend>
+          <legend>SVG size</legend>
         <form>
           <label>
             svg height
