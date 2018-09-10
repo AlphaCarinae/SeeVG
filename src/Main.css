@@ -67,6 +67,15 @@ body {
   font-family: 'Orbitron', sans-serif;
 }
 
+.colorPicker {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 30px ;
+  height: 30px ;
+
+}
+
 /* small screen CSS here */
 @media (max-width: 699px) {
   .container {
@@ -85,6 +94,13 @@ body {
 
   .tools, .controls {
     margin: 2vh auto;
+  }
+
+  .dropDownOpen {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    
   }
 
 }
@@ -158,6 +174,7 @@ body {
   .selected {
     outline: 1px dashed black;
   }
+
 
 
 }

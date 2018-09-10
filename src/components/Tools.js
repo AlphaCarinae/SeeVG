@@ -63,8 +63,8 @@ class Tools extends Component {
           </fieldset>
 
           <fieldset>
-            <input type="color" value={color} onChange={(event) => this.updateState({color: event.target.value})}></input>
-            <input type="color" value={fillColor} onChange={(event) => this.updateState({fillColor: event.target.value})}></input>
+            <input className="colorPicker" type="color" value={color} onChange={(event) => this.updateState({color: event.target.value})}></input>
+            <input className="colorPicker" type="color" value={fillColor} onChange={(event) => this.updateState({fillColor: event.target.value})}></input>
           </fieldset>
 
           <fieldset>
