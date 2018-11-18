@@ -29,7 +29,10 @@ class Board extends Component {
   componentDidMount() {
     //getting the height and width of the board div
     const {clientHeight, clientWidth} = this.refs.board
-    this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth }});
+    // const {}
+    console.log(this.refs);
+
+    this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth}});
     //bind delete key to delete selected items
     window.addEventListener("keydown", this._handleDelKey);
   }
@@ -138,6 +141,7 @@ class Board extends Component {
       <div className="board" ref="board">
         {/* <svg id="backBoard" height={height} width={width}> */}
           <svg
+            ref="svg"
             id="drawingBoard"
             width={width}
             height={height}
@@ -158,6 +162,8 @@ class Board extends Component {
                      }
                      console.log("drawingBoard")
                  }
+                 //make sure new shapes are not drawn based on available points in the board state
+              } else {
 
               }
             }}
@@ -175,10 +181,14 @@ class Board extends Component {
 
             }}
             onMouseMove={(event) => {
+              //make sure drawing is in progress
+              // and event firing on current object being drawn does not affect points in state
+              // this is to tackle the way firefox handles mousemove event and offsetX, offsetY
               if (this.state.mouseIsDown)  {
                 let points = this.state.points;
                 points.x2 = event.nativeEvent.offsetX;
                 points.y2 = event.nativeEvent.offsetY;
+                console.log(event.nativeEvent, points);
                 this.setState({...this.state, points}, this.svgRender)
               }
             }}
