@@ -34,7 +34,7 @@ class Home extends Component {
 
 
     update(obj) {
-      this.setState(...this.state, obj)
+      this.setState(obj)
     }
 
     componentDidMount() {

@@ -30,7 +30,6 @@ class Board extends Component {
     //getting the height and width of the board div
     const {clientHeight, clientWidth} = this.refs.board
     // const {}
-    console.log(this.refs);
 
     this.setState({...this.state, boardSize: { height: clientHeight, width: clientWidth}});
     //bind delete key to delete selected items
@@ -188,7 +187,6 @@ class Board extends Component {
                 let points = this.state.points;
                 points.x2 = event.nativeEvent.offsetX;
                 points.y2 = event.nativeEvent.offsetY;
-                console.log(event.nativeEvent, points);
                 this.setState({...this.state, points}, this.svgRender)
               }
             }}
