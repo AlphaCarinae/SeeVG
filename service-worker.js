@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/SeeVG/precache-manifest.9319f32d73203e16392a22adcfef05da.js"
+  "/SeeVG/precache-manifest.9f32435d50a34ea63280c6e669e2bdee.js"
 );
 
 workbox.clientsClaim();
